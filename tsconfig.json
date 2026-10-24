@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "module": "commonjs",
+    "module": "node16",
     "lib": [
       "es2018"
     ],
@@ -11,14 +11,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "types": [
       "node"
     ],
-    "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "*"
+        "./src/*"
+      ],
+      "@test/*": [
+        "./test/*"
       ]
     }
   },
