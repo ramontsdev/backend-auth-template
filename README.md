@@ -1,4 +1,4 @@
-# 🔐 Backend Auth Example API
+# 🔐 Backend Auth Template API
 
 Uma API completa de autenticação desenvolvida com Node.js, Express, TypeScript e Prisma, seguindo os princípios de Clean Architecture.
 
