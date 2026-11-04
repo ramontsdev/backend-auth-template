@@ -227,14 +227,14 @@ O projeto inclui uma collection completa do Postman com:
 ### Exemplo de Uso
 
 ```bash
-# 1. Cadastrar usuário
+# 1. Cadastrar usuário (document é opcional)
 curl -X POST http://localhost:4500/api/sign-up \
   -H "Content-Type: application/json" \
   -d '{
     "name": "João Silva",
     "email": "joao@example.com",
-    "document": "12345678901",
-    "password": "12345678"
+    "password": "12345678",
+    "passwordConfirmation": "12345678"
   }'
 
 # 2. Fazer login
@@ -313,8 +313,8 @@ pnpm docker:down
 | `pnpm prisma:generate` | Gera o cliente Prisma           |
 | `pnpm prisma:migrate`  | Executa migrações do banco      |
 | `pnpm prisma:studio`   | Abre o Prisma Studio            |
-| `pnpm lint`            | Executa o linter                |
-| `pnpm lint:fix`        | Corrige problemas do linter     |
+| `pnpm lint`            | Executa o Oxlint (`src/`)       |
+| `pnpm lint:fix`        | Corrige problemas com `--fix`   |
 | `pnpm typecheck`       | Verifica tipos TypeScript       |
 | `pnpm docker:up`       | Sobe containers Docker          |
 | `pnpm docker:down`     | Para containers Docker          |

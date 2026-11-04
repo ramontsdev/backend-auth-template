@@ -34,10 +34,12 @@ export class SignUpController implements IController {
 
     const { name, email, password, document } = data;
 
-    const userByDocument = await this.findUserByDocument.findByDocument(document);
+    if (document !== undefined) {
+      const userByDocument = await this.findUserByDocument.findByDocument(document);
 
-    if (userByDocument) {
-      return badRequest({ error: 'Usuário já existe para este documento' });
+      if (userByDocument) {
+        return badRequest({ error: 'Usuário já existe para este documento' });
+      }
     }
 
     const userByEmail = await this.findUserByEmail.findByEmail(email);
@@ -48,7 +50,12 @@ export class SignUpController implements IController {
 
     const hashedPassword = await this.hasher.hash(password);
 
-    const user = await this.createUser.create({ name, email, password: hashedPassword, document });
+    const user = await this.createUser.create({
+      name,
+      email,
+      password: hashedPassword,
+      document: document ?? null,
+    });
 
     const verificationCode = await this.createVerificationCode.create({
       email,

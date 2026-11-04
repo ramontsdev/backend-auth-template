@@ -19,7 +19,14 @@ export class UserPrismaRepository implements
   constructor(private readonly prismaClient: PrismaClient) {}
 
   async create(data: CreateUserDTO): Promise<UserModel> {
-    const user = await this.prismaClient.user.create({ data });
+    const user = await this.prismaClient.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        document: data.document ?? null,
+      },
+    });
 
     return user;
   }
