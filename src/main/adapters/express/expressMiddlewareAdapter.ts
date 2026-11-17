@@ -13,19 +13,23 @@ export function adaptExpressMiddleware(middleware: IMiddleware) {
       body: request.body,
     };
 
-    const httpResponse = await middleware.handle(httpRequest);
+    try {
+      const httpResponse = await middleware.handle(httpRequest);
 
-    if (httpResponse.statusCode >= 300) {
-      response.status(httpResponse.statusCode).json(httpResponse.body);
+      if (httpResponse.statusCode >= 300) {
+        response.status(httpResponse.statusCode).json(httpResponse.body);
 
-      return;
+        return;
+      }
+
+      request.metadata = {
+        ...request.metadata,
+        ...httpResponse.body,
+      };
+
+      next();
+    } catch (error) {
+      next(error);
     }
-
-    request.metadata = {
-      ...request.metadata,
-      ...httpResponse.body,
-    };
-
-    next();
   };
 }

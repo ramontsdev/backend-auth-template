@@ -27,7 +27,7 @@
       "enabled": true
     },
     {
-      "key": "ORIGINS_ALLOWED",
+      "key": "ALLOWED_ORIGINS",
       "value": "http://localhost:3000",
       "description": "Origens permitidas para CORS",
       "enabled": true

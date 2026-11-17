@@ -282,7 +282,7 @@ src/
 | `PORT`                  | Porta do servidor         | `4500`                                     |
 | `DATABASE_URL`          | URL do banco PostgreSQL   | `postgresql://user:pass@localhost:5432/db` |
 | `JWT_SECRET`            | Chave secreta para JWT    | `sua-chave-secreta`                        |
-| `ORIGINS_ALLOWED`       | Origens permitidas (CORS) | `http://localhost:3000`                    |
+| `ALLOWED_ORIGINS`       | Origens permitidas (CORS), separadas por vírgula | `http://localhost:3000`                    |
 | `AWS_REGION`            | Região da AWS             | `us-east-1`                                |
 | `AWS_ACCESS_KEY_ID`     | Chave de acesso AWS       | `AKIA...`                                  |
 | `AWS_SECRET_ACCESS_KEY` | Chave secreta AWS         | `...`                                      |

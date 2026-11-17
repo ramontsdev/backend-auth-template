@@ -12,6 +12,17 @@ describe('AuthenticationMiddleware', () => {
     expect(response.statusCode).toBe(401);
   });
 
+  it('rejects token payload without valid sub', async () => {
+    const sut = new AuthenticationMiddleware(
+      { findById: vi.fn() },
+      { decrypt: vi.fn().mockResolvedValue({ sub: 42 }) },
+    );
+    const response = await sut.handle(
+      makeHttpRequest({ headers: { authorization: 'Bearer token' } }),
+    );
+    expect(response.statusCode).toBe(401);
+  });
+
   it('returns account when token is valid', async () => {
     const user = makeUser();
     const sut = new AuthenticationMiddleware(

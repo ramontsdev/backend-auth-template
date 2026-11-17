@@ -24,7 +24,7 @@ O Environment "Backend Environment" contém todas as variáveis de ambiente do p
 | `PORT`                  | `4500`                                                  | Porta do servidor            |
 | `JWT_SECRET`            | `secret-example`                                        | Chave secreta para JWT       |
 | `DATABASE_URL`          | `postgresql://root:root@localhost:5432/auth_example_db` | URL do banco de dados        |
-| `ORIGINS_ALLOWED`       | `http://localhost:3000`                                 | Origens permitidas para CORS |
+| `ALLOWED_ORIGINS`       | `http://localhost:3000`                                 | Origens permitidas para CORS |
 | `AWS_REGION`            | _(vazio)_                                               | Região da AWS                |
 | `AWS_ACCESS_KEY_ID`     | _(vazio)_                                               | Chave de acesso da AWS       |
 | `AWS_SECRET_ACCESS_KEY` | _(vazio)_                                               | Chave secreta da AWS         |

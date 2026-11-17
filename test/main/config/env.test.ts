@@ -9,6 +9,7 @@ describe('env', () => {
   });
 
   it('reads configuration from environment', () => {
-    expect(env).toBeDefined();
+    expect(env.port).toBe('4500');
+    expect(env.allowedOrigins).toBe('http://localhost:3000');
   });
 });

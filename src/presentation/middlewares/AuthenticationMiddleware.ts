@@ -1,5 +1,6 @@
 import { IDecrypter } from '@/domain/cryptography/decrypter';
 import { IFindUserById } from '@/domain/usecases/user/FindUserById';
+import { parseJwtAccessTokenPayload } from '@/presentation/helpers/jwtAccessTokenPayload';
 import { ok, unauthorized } from '@/presentation/helpers/httpHelpers';
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http';
 import { IMiddleware } from '@/presentation/protocols/middleware';
@@ -23,7 +24,8 @@ export class AuthenticationMiddleware implements IMiddleware {
       return unauthorized({ error: 'Não autorizado' });
     }
 
-    const payload = await this.decrypter.decrypt(token) as { sub: string; };
+    const decrypted = await this.decrypter.decrypt(token);
+    const payload = parseJwtAccessTokenPayload(decrypted);
 
     if (!payload) {
       return unauthorized({ error: 'Não autorizado' });

@@ -1,5 +1,5 @@
 import { IFindUserByEmail } from '@/domain/usecases/user/FindUserByEmail';
-import { IUpdateUser } from '@/domain/usecases/user/UpdateUser';
+import { IConsumeEmailVerificationCode } from '@/domain/usecases/verificationCode/ConsumeEmailVerificationCode';
 import { IDeleteVerificationCode } from '@/domain/usecases/verificationCode/DeleteVerificationCode';
 import { IFindVerificationCode } from '@/domain/usecases/verificationCode/FindVerificationCode';
 import { badRequest, conflict, noContent } from '@/presentation/helpers/httpHelpers';
@@ -12,7 +12,7 @@ export class ConfirmEmailController implements IController {
     private readonly findUserByEmail: IFindUserByEmail,
     private readonly findVerificationCode: IFindVerificationCode,
     private readonly deleteVerificationCode: IDeleteVerificationCode,
-    private readonly updateUser: IUpdateUser,
+    private readonly consumeEmailVerificationCode: IConsumeEmailVerificationCode,
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -57,17 +57,10 @@ export class ConfirmEmailController implements IController {
       return badRequest({ error: 'Código expirado' });
     }
 
-    await this.deleteVerificationCode.delete({
+    await this.consumeEmailVerificationCode.consume({
       email,
       code,
-      type: 'EMAIL_VERIFICATION',
-    });
-
-    await this.updateUser.update({
-      id: user.id,
-      isEmailVerified: true,
-      email: user.email,
-      name: user.name,
+      userId: user.id,
     });
 
     return noContent();

@@ -6,7 +6,7 @@ enum VerificationCodeType {
 model VerificationCode {
   id    String @id @default(uuid())
   email String
-  code  String @unique
+  code  String
 
   type VerificationCodeType
 

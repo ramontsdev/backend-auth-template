@@ -39,6 +39,7 @@ describe('SignUpController', () => {
     }));
 
     expect(response.statusCode).toBe(200);
+    expect(response.body).not.toHaveProperty('password');
     expect(findUserByDocument.findByDocument).not.toHaveBeenCalled();
     expect(createUser.create).toHaveBeenCalledWith(
       expect.objectContaining({ document: null }),

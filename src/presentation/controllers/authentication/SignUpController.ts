@@ -73,6 +73,8 @@ export class SignUpController implements IController {
       }),
     });
 
-    return ok(user);
+    const { password: _, ...userWithoutPassword } = user;
+
+    return ok(userWithoutPassword);
   }
 }

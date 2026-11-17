@@ -1,6 +1,6 @@
 import { IHasher } from '@/domain/cryptography/hasher';
-import { IUpdatePassword } from '@/domain/usecases/authentication/UpdatePassword';
 import { IFindUserByEmail } from '@/domain/usecases/user/FindUserByEmail';
+import { IConsumePasswordResetCode } from '@/domain/usecases/verificationCode/ConsumePasswordResetCode';
 import { IDeleteVerificationCode } from '@/domain/usecases/verificationCode/DeleteVerificationCode';
 import { IFindVerificationCode } from '@/domain/usecases/verificationCode/FindVerificationCode';
 import { badRequest, noContent } from '@/presentation/helpers/httpHelpers';
@@ -13,7 +13,7 @@ export class ResetPasswordController implements IController {
     private readonly findUserByEmail: IFindUserByEmail,
     private readonly findVerificationCode: IFindVerificationCode,
     private readonly deleteVerificationCode: IDeleteVerificationCode,
-    private readonly updatePassword: IUpdatePassword,
+    private readonly consumePasswordResetCode: IConsumePasswordResetCode,
     private readonly hasher: IHasher,
   ) {}
 
@@ -55,15 +55,11 @@ export class ResetPasswordController implements IController {
       return badRequest({ error: 'Código expirado' });
     }
 
-    await this.deleteVerificationCode.delete({
-      email,
-      code,
-      type: 'PASSWORD_RESET',
-    });
-
     const hashedPassword = await this.hasher.hash(password);
 
-    await this.updatePassword.updatePassword({
+    await this.consumePasswordResetCode.consume({
+      email,
+      code,
       userId: user.id,
       password: hashedPassword,
     });
